@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin panel · FoodAdvisor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <div class="page-head"><div class="in">
+    <h1>Admin panel</h1>
+    <p class="sub">Moderate customers, owners, restaurants and reviews across the platform.</p>
+  </div></div>
+
+  <main class="with-head">
+    <div class="card">
+      <div class="tabs" id="tabs">
+        <button data-tab="customers" class="active">Customers</button>
+        <button data-tab="owners" class="secondary">Owners</button>
+        <button data-tab="restaurants" class="secondary">Restaurants</button>
+        <button data-tab="reviews" class="secondary">Reviews</button>
+      </div>
+    </div>
+
+    <!-- Customers -->
+    <section id="tab-customers" class="tab">
+      <div class="card">
+        <h2>Customers</h2>
+        <form id="custSearchForm"><div class="row">
+          <div class="field" style="flex:2; min-width:180px;"><label for="cust_q">Search</label><input id="cust_q" placeholder="name or email"></div>
+          <div class="field"><label for="cust_status">Status</label><select id="cust_status"><option value="">Any</option><option>active</option><option>suspended</option></select></div>
+          <div class="field"><button>Search</button></div>
+        </div></form>
+      </div>
+      <div class="card"><div id="custList" class="table-scroll"></div></div>
+    </section>
+
+    <!-- Owners -->
+    <section id="tab-owners" class="tab" hidden>
+      <div class="card">
+        <h2>Restaurant owners</h2>
+        <p class="muted">Add a new owner account. They'll be able to create and manage their own restaurants.</p>
+        <form id="ownerForm"><div class="row">
+          <div class="field" style="flex:1; min-width:160px;"><label for="o_name">Name *</label><input id="o_name" required></div>
+          <div class="field" style="flex:1; min-width:160px;"><label for="o_email">Email *</label><input id="o_email" type="email" required></div>
+          <div class="field"><label for="o_password">Password (8–72)</label><input id="o_password" type="password" placeholder="leave blank to auto-generate"></div>
+          <div class="field"><button class="accent" style="background:var(--accent);border-color:var(--accent)">Add owner</button></div>
+        </div></form>
+      </div>
+      <div class="card"><div id="ownerList" class="table-scroll"></div></div>
+    </section>
+
+    <!-- Restaurants -->
+    <section id="tab-restaurants" class="tab" hidden>
+      <div class="card">
+        <h2>All restaurants</h2>
+        <p class="muted">Approve or remove any restaurant on the platform.</p>
+        <div id="restList" class="table-scroll"></div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="tab-reviews" class="tab" hidden>
+      <div class="card">
+        <h2>Review moderation</h2>
+        <form id="revFilterForm"><div class="row">
+          <div class="field"><label for="rev_status">Status</label><select id="rev_status"><option value="">Any</option><option>visible</option><option>hidden</option><option>flagged</option></select></div>
+          <div class="field"><button>Filter</button></div>
+        </div></form>
+      </div>
+      <div class="card"><div id="revList" class="table-scroll"></div></div>
+    </section>
+
+    <footer><a href="/customer.html">Restaurants</a><a href="/index.html">Home</a><p>© 2026 FoodAdvisor</p></footer>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/admin.js"></script>
+</body>
+</html>

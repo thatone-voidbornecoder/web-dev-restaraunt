@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in · FoodAdvisor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="nav"><a class="brand" href="/index.html">FoodAdvisor</a><a href="/customer.html">Restaurants</a><a href="/login.html">Log in</a></div>
+
+  <div class="page-head"><div class="in">
+    <h1>Welcome back.</h1>
+    <p class="sub">Log in to review restaurants, manage your menu, or moderate the platform.</p>
+  </div></div>
+
+  <main class="with-head">
+    <div class="row">
+      <div class="card" style="flex:1; min-width:300px;">
+        <h2>Log in</h2>
+        <p class="muted">Already have an account? Sign in below.</p>
+        <div id="loginMsg"></div>
+        <form id="loginForm">
+          <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+          <button type="submit">Log in</button>
+        </form>
+      </div>
+
+      <div class="card" style="flex:1; min-width:300px;">
+        <h2>Create a customer account</h2>
+        <p class="muted">New here? Sign up to start leaving reviews.</p>
+        <div id="regMsg"></div>
+        <form id="regForm">
+          <div class="field"><label for="rname">Name</label><input id="rname" autocomplete="name" required></div>
+          <div class="field"><label for="remail">Email</label><input id="remail" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="rpassword">Password (8–72 chars)</label><input id="rpassword" type="password" autocomplete="new-password" required minlength="8"></div>
+          <button type="submit" class="accent" style="background:var(--accent);border-color:var(--accent)">Create account</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>Demo accounts</b> (password <code>password123</code> for all):<br>
+      Customer <code>adeeb@foodadvisor.com</code> · Owner <code>nathan@foodadvisor.com</code> · Admin <code>admin@foodadvisor.com</code><br>
+      <span class="muted">Owners and admins are created through the admin panel — customers sign up here.</span>
+    </div>
+
+    <footer><a href="/customer.html">Restaurants</a><a href="/index.html">Home</a><p>© 2026 FoodAdvisor</p></footer>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FoodAdvisor: find your next favourite restaurant</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .search{background:#fff;color:var(--ink);border-radius:18px;padding:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;max-width:900px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+    .search .field{margin:0;flex:1;min-width:150px}.search input,.search select{max-width:none}
+    .sec{max-width:1120px;margin:0 auto;padding:56px 24px 0}
+    .sec h2{margin-bottom:6px}
+    .sec .grid{margin-top:20px}
+    .thumb{height:150px;margin:-24px -24px 12px;border-radius:9px 9px 0 0;background:linear-gradient(135deg,var(--brand),var(--brand2)) center/cover}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .chips a{padding:8px 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;text-decoration:none;color:var(--ink);font-weight:600}
+    .chips a:hover{border-color:var(--brand2);background:var(--brand-light)}
+    .owner{max-width:1072px;margin:56px auto 0;background:var(--ink);color:#fff;border-radius:20px;padding:36px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+    .owner p{margin:6px 0 0;color:#b9c4cd}
+    footer{margin-top:64px;padding:28px 24px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.9rem}
+    footer a{color:var(--muted);margin:0 10px}
+  </style>
+</head>
+<body>
+  <div id="nav"><a class="brand" href="/index.html">FoodAdvisor</a><a href="/customer.html">Restaurants</a><a href="/login.html">Log in</a></div>
+  <div class="hero"><div class="in">
+    <h1>Find your next favourite restaurant.</h1>
+    <p>Honest ratings and reviews from real diners, with the dishes and prices up front.</p>
+    <form class="search" id="heroSearch" action="/customer.html">
+      <div class="field" style="flex:2"><label for="hq">Search</label><input id="hq" name="q" placeholder="Restaurant, cuisine or dish"></div>
+      <div class="field"><label for="hc">Cuisine</label><select id="hc" name="cuisine"><option value="">Any</option></select></div>
+      <div class="field"><label for="hcity">City</label><select id="hcity" name="city"><option value="">Any</option></select></div>
+      <button type="submit" class="accent" style="background:var(--accent);border-color:var(--accent)">Search</button>
+    </form>
+  </div></div>
+
+  <section class="sec"><h2>Top rated right now</h2><p class="muted">Ranked by average diner rating.</p><div class="grid" id="top"></div></section>
+  <section class="sec"><h2>Browse by cuisine</h2><div class="chips" id="cuisines"></div></section>
+
+  <div class="owner">
+    <div><h2 style="margin:0">Own a restaurant?</h2><p>Put your menu in front of diners and reply to every review.</p></div>
+    <a class="btn accent" href="/login.html">Get started</a>
+  </div>
+  <footer><a href="/customer.html">Restaurants</a><a href="/login.html">Log in</a><a href="/login.html">Sign up</a><p>© 2026 FoodAdvisor</p></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="/common.js"></script>
+  <script>
+    $(function () {
+      // Logged-in users go straight to their role's page.
+      if (getToken()) {
+        (async function () {
+          try { const u = getCachedUser() || await fetchMe(); if (u) location.href = '/' + u.role + '.html'; }
+          catch (e) { clearToken(); }
+        })();
+      }
+      $.getJSON('/api/customer/filters', function (f) {
+        $.each(f.cuisines, function (_, c) {
+          $('#hc').append($('<option>').text(c));
+          $('#cuisines').append($('<a>').attr('href', '/customer.html?cuisine=' + encodeURIComponent(c)).text(c));
+        });
+        $.each(f.cities, function (_, c) { $('#hcity').append($('<option>').text(c)); });
+      });
+      $.getJSON('/api/customer/restaurants/search', function (rows) {
+        rows.sort(function (a, b) { return (b.avg_rating || 0) - (a.avg_rating || 0); });
+        $.each(rows.slice(0, 6), function (_, r) {
+          var stars = r.avg_rating ? '★'.repeat(Math.round(r.avg_rating)) + ' ' + r.avg_rating : 'No ratings yet';
+          var $thumb = $('<div class="thumb">');
+          if (r.image_url) $thumb.css('background-image', 'url("' + encodeURI(r.image_url) + '")');
+          $('#top').append($('<a class="card">').attr('href', '/customer.html?id=' + r.id).css('text-decoration', 'none').css('color', 'inherit').append(
+            $thumb, $('<h3>').text(r.name),
+            $('<p class="muted">').text([r.cuisine, r.city, r.price_range].filter(Boolean).join(' · ')),
+            $('<p>').append($('<span class="stars">').text(stars), $('<span class="muted">').text(' · ' + r.review_count + ' reviews'))
+          ));
+        });
+        if (!rows.length) $('#top').append($('<p class="empty">').text('No restaurants yet.'));
+      }).fail(function () { $('#top').append($('<p class="empty">').text('Restaurants are unavailable right now.')); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Owner dashboard · FoodAdvisor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <div class="page-head"><div class="in">
+    <h1>Owner dashboard</h1>
+    <p class="sub">Manage your restaurants and menu, see every diner review, and reply in one click.</p>
+  </div></div>
+
+  <main class="with-head">
+    <div class="card">
+      <h2>My restaurants</h2>
+      <p class="muted">Add a new spot, or edit and manage an existing one.</p>
+      <div id="restList" class="grid"></div>
+
+      <h3 id="formTitle">Add a restaurant</h3>
+      <form id="restForm">
+        <input type="hidden" id="r_id">
+        <div class="row">
+          <div class="field" style="flex:2; min-width:200px;"><label for="r_name">Name *</label><input id="r_name" required></div>
+          <div class="field"><label for="r_cuisine">Cuisine</label><input id="r_cuisine" placeholder="Indian, Italian…"></div>
+          <div class="field"><label for="r_city">City</label><input id="r_city"></div>
+          <div class="field"><label for="r_price">Price</label><select id="r_price"><option>$</option><option selected>$$</option><option>$$$</option><option>$$$$</option></select></div>
+        </div>
+        <div class="field"><label for="r_address">Address</label><input id="r_address"></div>
+        <div class="field"><label for="r_description">Description</label><textarea id="r_description" rows="2"></textarea></div>
+        <button type="submit" id="restSubmit">Add restaurant</button>
+        <button type="button" class="secondary" id="restReset" hidden>Cancel</button>
+      </form>
+    </div>
+
+    <div id="manage" class="card" hidden>
+      <button class="secondary" onclick="closeManage()">← Back to my restaurants</button>
+      <div class="spacer"></div>
+      <h2 id="m_title"></h2>
+
+      <h3>Dishes</h3>
+      <p class="muted">Build your menu. Edit price or details any time.</p>
+      <div id="dishList" class="table-scroll"></div>
+      <form id="dishForm">
+        <input type="hidden" id="d_id">
+        <div class="row">
+          <div class="field" style="flex:2; min-width:180px;"><label for="d_name">Dish name *</label><input id="d_name" required></div>
+          <div class="field"><label for="d_price">Price *</label><input id="d_price" type="number" step="0.01" min="0" required></div>
+          <div class="field"><label for="d_category">Category</label><input id="d_category" placeholder="Main, Appetizer…"></div>
+          <div class="field"><label for="d_dietary">Dietary tag</label><input id="d_dietary" placeholder="Vegan, Halal…"></div>
+        </div>
+        <div class="field"><label for="d_description">Description</label><textarea id="d_description" rows="2"></textarea></div>
+        <button type="submit" id="dishSubmit">Add dish</button>
+        <button type="button" class="secondary" id="dishReset" hidden>Cancel</button>
+      </form>
+
+      <h3>Reviews on this restaurant</h3>
+      <p class="muted">Read what diners said and reply to each review.</p>
+      <div id="reviewList"></div>
+    </div>
+
+    <footer><a href="/customer.html">Restaurants</a><a href="/index.html">Home</a><p>© 2026 FoodAdvisor</p></footer>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/owner.js"></script>
+</body>
+</html>

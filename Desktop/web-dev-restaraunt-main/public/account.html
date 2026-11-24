@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage account · FoodAdvisor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <div class="page-head"><div class="in">
+    <h1>Manage account</h1>
+    <p class="sub">Update your name, email or password, or close your account. Every signed-in user manages their own row here.</p>
+  </div></div>
+
+  <main class="with-head">
+
+    <!-- Read-only profile summary -->
+    <div class="card">
+      <h2>Your profile</h2>
+      <p class="muted">How your account looks to the system right now.</p>
+      <div class="spacer"></div>
+      <div id="profile" class="table-scroll"></div>
+    </div>
+
+    <!-- Edit details -->
+    <div class="card">
+      <h2>Edit details</h2>
+      <p class="muted">Change your name or email, and set a new password if you want one. Fields you leave alone are kept as-is.</p>
+      <div class="spacer"></div>
+      <div id="formMsg"></div>
+      <form id="accountForm" autocomplete="on">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" maxlength="100" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" maxlength="150" autocomplete="email">
+        </div>
+
+        <div class="spacer"></div>
+        <h3>Change password</h3>
+        <p class="muted" style="margin-top:2px">Leave both fields blank to keep your current password.</p>
+        <div class="field" style="margin-top:12px">
+          <label for="password">New password</label>
+          <input id="password" name="password" type="password" placeholder="8–72 characters" autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label for="confirm">Confirm new password</label>
+          <input id="confirm" name="confirm" type="password" autocomplete="new-password">
+        </div>
+
+        <div class="actions">
+          <button type="submit">Save changes</button>
+          <button type="reset" class="secondary">Reset form</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Danger zone -->
+    <div class="card">
+      <h2>Delete account</h2>
+      <p class="muted">Permanently removes your account. Your reviews and replies are deleted; for owners, restaurants and dishes are removed too (the schema cascades). This cannot be undone.</p>
+      <div class="spacer"></div>
+      <div id="delMsg"></div>
+      <div class="actions">
+        <button type="button" class="btn-danger" id="deleteBtn">Delete my account</button>
+      </div>
+    </div>
+
+    <footer><a href="/customer.html">Restaurants</a><a href="/index.html">Home</a><p>© 2026 FoodAdvisor</p></footer>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/account.js"></script>
+</body>
+</html>

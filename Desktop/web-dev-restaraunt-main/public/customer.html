@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse restaurants · FoodAdvisor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <div class="page-head"><div class="in">
+    <h1>Browse restaurants</h1>
+    <p class="sub">Search by name, cuisine or dish, then filter by city, price and rating. Click a card for the full menu and reviews.</p>
+  </div></div>
+
+  <main class="with-head">
+    <div class="card">
+      <h2>Find a restaurant</h2>
+      <form id="searchForm">
+        <div class="row">
+          <div class="field" style="flex:2; min-width:180px;">
+            <label for="q">Search</label>
+            <input id="q" name="q" placeholder="name, cuisine, dish…">
+          </div>
+          <div class="field"><label for="cuisine">Cuisine</label><select id="cuisine"><option value="">Any</option></select></div>
+          <div class="field"><label for="city">City</label><select id="city"><option value="">Any</option></select></div>
+          <div class="field"><label for="price">Price</label><select id="price">
+            <option value="">Any</option><option>$</option><option>$$</option><option>$$$</option><option>$$$$</option>
+          </select></div>
+          <div class="field"><label for="minRating">Min rating</label><select id="minRating">
+            <option value="">Any</option><option value="3">3+</option><option value="4">4+</option><option value="4.5">4.5+</option>
+          </select></div>
+          <div class="field"><button type="submit">Search</button></div>
+        </div>
+      </form>
+      <p id="count" class="muted"></p>
+    </div>
+
+    <div id="results" class="grid"></div>
+
+    <!-- Restaurant detail panel (populated when a card is clicked) -->
+    <div id="detail" class="card" hidden>
+      <button class="secondary" onclick="hideDetail()">← Back to results</button>
+      <div class="spacer"></div>
+      <h2 id="d_name"></h2>
+      <p id="d_meta" class="muted"></p>
+      <p id="d_desc"></p>
+
+      <h3>Dishes</h3>
+      <div id="d_dishes" class="table-scroll"></div>
+
+      <h3>Reviews</h3>
+      <div id="d_reviews"></div>
+
+      <div id="reviewFormWrap" hidden>
+        <h3 id="reviewFormTitle">Write a review</h3>
+        <form id="reviewForm">
+          <div class="field"><label for="rv_rating">Rating</label>
+            <select id="rv_rating"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option></select>
+          </div>
+          <div class="field"><label for="rv_comment">Comment (5–1000 chars)</label><textarea id="rv_comment" rows="3" maxlength="1000"></textarea></div>
+          <input type="hidden" id="rv_id">
+          <button type="submit">Submit</button>
+          <button type="button" class="secondary" id="rv_cancel" hidden>Cancel edit</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="myReviews" class="card" hidden>
+      <h2>My reviews</h2>
+      <p class="muted">Everything you've reviewed, with quick links to edit.</p>
+      <div id="myReviewsList" class="table-scroll"></div>
+    </div>
+
+    <footer><a href="/customer.html">Restaurants</a><a href="/index.html">Home</a><a href="/login.html">Log in</a><p>© 2026 FoodAdvisor</p></footer>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/customer.js"></script>
+</body>
+</html>
